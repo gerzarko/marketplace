@@ -2,6 +2,7 @@ import { Component, createSignal } from "solid-js";
 import { supabase } from "./supabaseClient";
 import { currentSession } from "./userSessionStore";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { PasswordRequireCheck } from "./PasswordRequireCheck";
 
 const lang = getLangFromUrl(new URL(window.location.href));
 const t = useTranslations(lang);
@@ -42,28 +43,33 @@ export const Auth: Component = (props) => {
 
   const handleSignUp = async (e: SubmitEvent) => {
     e.preventDefault();
-
-    if (password() === confirmPassword()) {
-      setPasswordMatch(true);
-      try {
-        setLoading(true);
-        const { error } = await supabase.auth.signUp({
-          email: email(),
-          password: password(),
-        });
-        if (error) throw error;
-        alert(t("messages.checkConfirmEmail"));
-        location.href = `/${lang}`;
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(error.message);
+    if (PasswordRequireCheck(password())) {
+      if (password() === confirmPassword()) {
+        setPasswordMatch(true);
+        try {
+          setLoading(true);
+          const { error } = await supabase.auth.signUp({
+            email: email(),
+            password: password(),
+          });
+          if (error) throw error;
+          alert(t("messages.checkConfirmEmail"));
+          location.href = `/${lang}`;
+        } catch (error) {
+          if (error instanceof Error) {
+            alert(error.message);
+          }
+        } finally {
+          setLoading(false);
         }
-      } finally {
-        setLoading(false);
+      } else {
+        setPasswordMatch(false);
+        alert(t("messages.passwordMatch"));
       }
     } else {
-      setPasswordMatch(false);
-      alert(t("messages.passwordMatch"));
+      alert(
+        "Password must contain at least 6 characters, including UPPER/lowercase,numbers and at least one special character"
+      );
     }
   };
 
@@ -159,7 +165,9 @@ export const Auth: Component = (props) => {
                   placeholder={t("formLabels.password")}
                   required
                   value={password()}
-                  oninput={(e) => setPassword(e.currentTarget.value)}
+                  oninput={(e) => {
+                    return setPassword(e.currentTarget.value);
+                  }}
                   aria-describedby="pwlength"
                 />
               </div>
