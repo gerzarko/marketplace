@@ -219,7 +219,9 @@ export const post: APIRoute = async ({ request, redirect }) => {
   console.log(locationSubmission);
 
   //Insert the submission to the location table and select it back from the database
+
   const { error: locationError, data: location } = await supabase
+
     .from("location")
     .insert([locationSubmission])
     .select("id");
