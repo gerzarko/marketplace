@@ -68,7 +68,7 @@ export const Auth: Component = (props) => {
       }
     } else {
       alert(
-        "Password must contain at least 6 characters, including upper, lowercase, numbers and at least one special character"
+        "Password must contain at least 6 characters, including UPPER/lowercase,numbers and at least one special character"
       );
     }
   };
