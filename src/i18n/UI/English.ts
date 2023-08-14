@@ -251,4 +251,11 @@ export const English = {
       // Add more products as needed
     ],
   },
+
+  homePageText: {
+    headline: "Everything you need to get the job done.",
+    subHeadline:
+      "Providers post services. Customers search posts. Work gets done.",
+    ariaLabel: "Placeholder info image",
+  },
 } as const;

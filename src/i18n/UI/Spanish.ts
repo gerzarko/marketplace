@@ -7,7 +7,7 @@ export const Spanish = {
     login: "Iniciar sesión",
     home: "Inicio",
     signIn: "Iniciar sesión",
-    createClientAccount: "Crear cuenta de cliente",
+    createClientAccount: "Crear Cuenta de Cliente",
     editClientAccount: "Editar Cuenta de Cliente",
     viewClientAccount: "Ver Cuenta de Cliente",
     createPost: "Crear Publicación",
@@ -15,13 +15,13 @@ export const Spanish = {
     editProviderAccount: "Editar Cuenta de Proveedor",
     viewProviderAccount: "Vista Propia del Perfil del Proveedor",
     page404: "404 - Página no Encontrada",
-    requestPasswordReset: "Petición para la Recuperación de Contraseña",
-    resetPassword: "Restablecer la Contraseña",
+    requestPasswordReset: "Solicitud para Recuperar la Contraseña",
+    resetPassword: "Resetear la Contraseña",
   },
 
   buttons: {
     providerProfile: "Mi Perfil de Proveedor",
-    editProfile: "Editar perfil",
+    editProfile: "Editar Perfil",
     register: "Registro",
     uploadImage: "Cargar Imagen",
     uploading: "Cargando ...",
@@ -32,11 +32,11 @@ export const Spanish = {
     signOut: "Desconectar",
     returnHome: "Haga clic para volver a casa",
     reset: "Reiniciar",
-    post: "Correo",
+    post: "Publicar",
     next: "Próxima",
     previous: "Previa",
     delete: "Borrar",
-    contact: "Correo electrónicotacto",
+    contact: "Correo electrónico",
     phone: "Llamada",
   },
 
@@ -59,12 +59,12 @@ export const Spanish = {
     createProviderAccount: "Inicie sesión para crear un perfil de proveedor",
     createClientAccount: "Inicie sesión para crear un perfil de cliente",
     viewProviderAccount:
-      "No tiene una cuenta de proveedor, cree una para ver su perfil de proveedor",
+      "No tiene una cuenta de proveedor, por favor cree una para ver su perfil de proveedor",
     noPosts: "No hay publicaciones disponibles",
     noPost: "Publicación no encontrada",
     selectAnImage: "Debe seleccionar una imagen para cargar.",
     noProvider: "No se encontró ningún proveedor.",
-    noValue: "No proporcionada",
+    noValue: "Sin valor",
   },
 
   formLabels: {
@@ -73,16 +73,16 @@ export const Spanish = {
     postContent: "Publicar Contenido",
     country: "País",
     majorMunicipality: "Provincia",
-    minorMunicipality: "Canton",
-    governingDistrict: "Districto",
+    minorMunicipality: "Cantón",
+    governingDistrict: "Distrito",
     search: "Buscar",
-    firstName: "Nombre de pila",
+    firstName: "Primer nombre",
     lastName: "Apellido",
     providerName: "Nombre del proveedor",
-    phone: "Número de teléfono",
+    phone: "Número de celular",
     email: "Correo electrónico",
     password: "Contraseña",
-    confirmPassword: "Confirmar Contraseña",
+    confirmPassword: "Confirmar contraseña",
     displayName: "Nombre para mostrar",
     enterPostContent: "Ingrese el contenido de la publicación aquí",
     noValue: "No proporcionada",
@@ -147,7 +147,7 @@ export const Spanish = {
         ],
       },
       {
-        title: "Compañía",
+        title: "Empresa",
         links: [
           { text: "Acerca", href: "#" },
           // { text: 'Blog', href: '#' },
@@ -195,9 +195,9 @@ export const Spanish = {
         id: "2",
       },
       {
-        name: "Automotor",
+        name: "Automóvil",
         description: "Servicios Automotrices",
-        ariaLabel: "Automotor",
+        ariaLabel: "Automóvil",
         id: "5",
       },
       {
@@ -207,9 +207,9 @@ export const Spanish = {
         id: "4",
       },
       {
-        name: "Creativa",
+        name: "Creativadad",
         description: "Servicios creativos",
-        ariaLabel: "Creativa",
+        ariaLabel: "Creatividad",
         id: "6",
       },
       {
@@ -243,9 +243,9 @@ export const Spanish = {
         id: "11",
       },
       {
-        name: "Mano de obra",
+        name: "Servicios Laborales",
         description: "Servicios Laborales",
-        ariaLabel: "Mano de obra",
+        ariaLabel: "Servicios Laborales",
         id: "12",
       },
       {
@@ -256,5 +256,12 @@ export const Spanish = {
       },
       // Add more products as needed
     ],
+  },
+
+  homePageText: {
+    headline: "Todo lo que necesita para hacer el trabajo.",
+    subHeadline:
+      "Los proveedores publican servicios. Publicaciones de búsqueda de clientes. El trabajo se hace.",
+    ariaLabel: "Imagen de información de marcador de posición",
   },
 } as const;
