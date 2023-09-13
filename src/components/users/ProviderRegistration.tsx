@@ -327,6 +327,16 @@ export const ProviderRegistration: Component = () => {
                         required
                         onChange={(e) => setPhone(e.currentTarget.value)}
           />
+
+            <script src="path/to/intlTelInput.js"></script>
+            <script>
+                const input = document.querySelector("#phone");
+                window.intlTelInput(input, {
+                utilsScript: "path/to/utils.js",
+                });
+            </script>
+
+
         </div>
 
                   
