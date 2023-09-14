@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabaseClient'
 import type { AuthSession } from '@supabase/supabase-js'
 import UserImage from './UserImage'
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { InternationalPhoneImplementation } from './InternationalPhoneImplementation';
 
 const lang = getLangFromUrl(new URL(window.location.href));
 const t = useTranslations(lang);
@@ -327,14 +328,7 @@ export const ProviderRegistration: Component = () => {
                         required
                         onChange={(e) => setPhone(e.currentTarget.value)}
           />
-
-            <script src="path/to/intlTelInput.js"></script>
-            <script>
-                const input = document.querySelector("#phone");
-                window.intlTelInput(input, {
-                utilsScript: "path/to/utils.js",
-                });
-            </script>
+           <InternationalPhoneImplementation/> 
 
 
         </div>

@@ -22,7 +22,7 @@ const lang = getLangFromUrl(Astro.url)
     <link rel="stylesheet" href="/tinymce/skins/content/default/content.min.css">
     <link rel="stylesheet" href="/tinymce/skins/ui/oxide/content.min.css">
     <link rel="stylesheet" href="/tinymce/skins/ui/oxide-dark/content.min.css">
-    <link rel="stylesheet" href="path/to/intlTelInput.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -33,6 +33,7 @@ const lang = getLangFromUrl(Astro.url)
 
   <body class="md:mx-4 text-page bg-background1 dark:bg-background1-DM text-ptext1 dark:text-ptext1-DM">
     <!-- <script src="../../../node_modules/tinymce/tinymce.min.js" referrerpolicy="origin"></script> -->
+
     <slot />
   </body>
 </html>
