@@ -66,6 +66,9 @@ export const ViewCard: Component<Props> = (props) => {
       <ul class="md:flex md:flex-wrap md:justify-center md:w-full">
         {newPosts().map((post: any) => (
           <li class=" w-[99%]">
+          {/* This is the momentary solution to the error of nested anchors that it throws if you put an anchor within another anchor*/}                
+          <a href="../../posts/promotepost">Promote Post</a>
+
             <a href={`/${lang}/posts/${post.id}`}>
               <div class="mb-2 flex flex-col md:flex-row md:justify-start justify-center items-center rounded-lg md:h-48 shadow-md shadow-shadow-LM dark:shadow-shadow-DM box-content border border-opacity-25 border-border1 dark:border-border1-DM dark:border-opacity-25">
                 <div class="flex md:w-48 w-full h-80 md:h-48 md:mr-2 items-center justify-center bg-background1 dark:bg-background1-DM rounded-lg">
@@ -121,11 +124,15 @@ export const ViewCard: Component<Props> = (props) => {
                           postImage={post.image_urls}
                         />
                       </div>
-                    </div>
-
+                      </div>
+                      <div>
+                      </div>
+                      
+                      <h1>Promote posts</h1>
                     <p class="text-2xl font-bold text-ptext1 dark:text-ptext1-DM overflow-hidden max-h-14 col-span-4 pr-4 truncate">
                       {post.title}
                     </p>
+
                     {/* <div class="justify-self-end pt-2 pr-4">
                       <DeletePostButton
                         id={post.id}
