@@ -48,6 +48,8 @@ interface ProviderPost {
     governing_district: string;
     user_id: string;
     image_urls: string;
+    promoted: boolean;
+
 }
 
 export const ServicesView: Component = () => {
@@ -58,16 +60,67 @@ export const ServicesView: Component = () => {
     const [locationFilters, setLocationFilters] = createSignal<Array<string>>([])
     const [minorLocationFilters, setMinorLocationFilters] = createSignal<Array<string>>([])
     const [governingLocationFilters, setGoverningLocationFilters] = createSignal<Array<string>>([])
-
+    const [posts2, setPosts2] = createSignal<Array<ProviderPost>>([])
     //start the page as displaying all posts
     if (!data) {
         alert(t('messages.noPosts'))
     } else {
         setPosts(data)
+        setPosts2(data)
         setCurrentPosts(data)
     }
 
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+    const sortPosts= async () => {
+
+        const { data: posts, error: postsError } = await supabase
+            .from('provider_post')
+            .select('*')
+        if(postsError){
+            console.log(postsError)
+        }
+        let posts3 = posts!
+        
+        let totalPostsPromoted2 = []
+
+        for (let i = 0; i < posts3.length; i++) {
+            if (posts3[i].promoted === true) {
+                totalPostsPromoted2.push(
+                    {
+                       post: posts3[i],
+                       index: i ,
+                    }
+                        )
+            }
+        }
+        
+        shuffleArray(totalPostsPromoted2)
+            for (let i = 0; i < 5&& totalPostsPromoted2.length >= 5; i++) {
+                let number = totalPostsPromoted2[i].index
+                       posts3.splice(number,1)
+                       posts3.unshift(totalPostsPromoted2[i].post)
+            }
+            console.log(posts2())
+            setPosts2(posts3)
+            console.log(posts2())
+    }
+// console.log(posts())
+  sortPosts() 
+    console.log(posts2())
+
+///////////////////////////////////////// 
+
     const searchPosts = async (searchString: string) => {
+
         console.log(searchString);
         if (searchString === '') {
             console.log("Data: ")
