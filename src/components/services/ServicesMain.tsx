@@ -60,13 +60,12 @@ export const ServicesView: Component = () => {
     const [locationFilters, setLocationFilters] = createSignal<Array<string>>([])
     const [minorLocationFilters, setMinorLocationFilters] = createSignal<Array<string>>([])
     const [governingLocationFilters, setGoverningLocationFilters] = createSignal<Array<string>>([])
-    const [posts2, setPosts2] = createSignal<Array<ProviderPost>>([])
+
     //start the page as displaying all posts
     if (!data) {
         alert(t('messages.noPosts'))
     } else {
         setPosts(data)
-        setPosts2(data)
         setCurrentPosts(data)
     }
 
@@ -88,35 +87,33 @@ export const ServicesView: Component = () => {
         if(postsError){
             console.log(postsError)
         }
-        let posts3 = posts!
+        let postsToOrganized= posts!
         
-        let totalPostsPromoted2 = []
+        let promotedPosts= []
 
-        for (let i = 0; i < posts3.length; i++) {
-            if (posts3[i].promoted === true) {
-                totalPostsPromoted2.push(
+        for (let i = 0; i < postsToOrganized.length; i++) {
+            if (postsToOrganized[i].promoted === true) {
+                promotedPosts.push(
                     {
-                       post: posts3[i],
+                       post: postsToOrganized[i],
                        index: i ,
                     }
                         )
             }
         }
         
-        shuffleArray(totalPostsPromoted2)
-            for (let i = 0; i < 5&& totalPostsPromoted2.length >= 5; i++) {
-                let number = totalPostsPromoted2[i].index
-                       posts3.splice(number,1)
-                       posts3.unshift(totalPostsPromoted2[i].post)
+        shuffleArray(promotedPosts)
+            for (let i = 0; i < 5&& promotedPosts.length >= 5; i++) {
+                let number = promotedPosts[i].index
+                       postsToOrganized.splice(number,1)
+                       postsToOrganized.unshift(promotedPosts[i].post)
             }
-            console.log(posts2())
-            setPosts2(posts3)
-            console.log(posts3)
+            // setCurrentPosts(posts3)
+            setPosts(postsToOrganized)
 
     }
 // console.log(posts())
   sortPosts() 
-    console.log(posts2())
 
 ///////////////////////////////////////// 
 
