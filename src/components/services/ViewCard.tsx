@@ -67,7 +67,10 @@ export const ViewCard: Component<Props> = (props) => {
         {newPosts().map((post: any) => (
           <li class=" w-[99%]">
           {/* This is the momentary solution to the error of nested anchors that it throws if you put an anchor within another anchor*/}                
-          <a href="../../posts/promotepost">Promote Post</a>
+          <div class="flex w-full py-2 2 content-start">
+
+          <a href="../../posts/promotepost"class="">Promote Post</a>
+          </div>
 
             <a href={`/${lang}/posts/${post.id}`}>
               <div class="mb-2 flex flex-col md:flex-row md:justify-start justify-center items-center rounded-lg md:h-48 shadow-md shadow-shadow-LM dark:shadow-shadow-DM box-content border border-opacity-25 border-border1 dark:border-border1-DM dark:border-opacity-25">

@@ -111,7 +111,8 @@ export const ServicesView: Component = () => {
             }
             console.log(posts2())
             setPosts2(posts3)
-            console.log(posts2())
+            console.log(posts3)
+
     }
 // console.log(posts())
   sortPosts() 
