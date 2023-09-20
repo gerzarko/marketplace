@@ -110,6 +110,7 @@ export const ServicesView: Component = () => {
             }
             // setCurrentPosts(posts3)
             setPosts(postsToOrganized)
+            setCurrentPosts(postsToOrganized)
 
     }
 // console.log(posts())
