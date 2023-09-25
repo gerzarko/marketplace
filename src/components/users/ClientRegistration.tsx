@@ -33,6 +33,7 @@ export const ClientRegistration: Component = () => {
   const [response] = createResource(formData, postFormData);
   const [imageUrl, setImageUrl] = createSignal<string | null>(null);
   const [phone, setPhone] = createSignal<string>("");
+  const [countryCode, setCountryCode] = createSignal<string>("");
 
   const regularExpressionPhone = new RegExp("^[0-9]{8}$");
 
@@ -199,6 +200,7 @@ export const ClientRegistration: Component = () => {
     // this might not be the best way to do this but it works and we can also have more control over the form input data
     if(regularExpressionPhone.test(phone())){
 
+    setPhone(countryCode() + phone());
       const formData = new FormData(e.target as HTMLFormElement);
       formData.append("access_token", session()?.access_token!);
       formData.append("refresh_token", session()?.refresh_token!);
@@ -359,6 +361,17 @@ export const ClientRegistration: Component = () => {
 
             </div>
           </div>
+          <input
+            type="text"
+            id="CountryCode"
+            class="rounded w-full mb-4 px-1 focus:border-highlight1 dark:focus:border-highlight1-DM border focus:border-2 border-inputBorder1 dark:border-inputBorder1-DM focus:outline-none bg-background1 dark:bg-background2-DM text-ptext1 dark:text-ptext2-DM"
+            name="CountryCode"
+            placeholder="+99"
+            required
+            onchange={(e) => setCountryCode(e.currentTarget.value)}
+          >
+          Country code:
+          </input>
           <input
             type="text"
             id="Phone"
