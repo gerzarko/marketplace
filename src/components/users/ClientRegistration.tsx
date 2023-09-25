@@ -10,6 +10,9 @@ import type { AuthSession } from "@supabase/supabase-js";
 import UserImage from "./UserImage";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
+import 'intl-tel-input/build/css/intlTelInput.css';
+import intlTelInput from 'intl-tel-input';
+
 const lang = getLangFromUrl(new URL(window.location.href));
 const t = useTranslations(lang);
 
@@ -195,12 +198,18 @@ export const ClientRegistration: Component = () => {
     }
   });
 
+
+  const countryCodeInput = document.querySelector("#CountryCode") as HTMLInputElement;
+  window.intlTelInput(countryCodeInput, {
+    utilsScript: "path/to/utils.js"
+  });
+
   function submit(e: SubmitEvent) {
     e.preventDefault();
     // this might not be the best way to do this but it works and we can also have more control over the form input data
     if(regularExpressionPhone.test(phone())){
 
-    setPhone(countryCode() + phone());
+    // setPhone(countryCode() + phone());
       const formData = new FormData(e.target as HTMLFormElement);
       formData.append("access_token", session()?.access_token!);
       formData.append("refresh_token", session()?.refresh_token!);
@@ -361,6 +370,7 @@ export const ClientRegistration: Component = () => {
 
             </div>
           </div>
+          /*
           <input
             type="text"
             id="CountryCode"
@@ -372,6 +382,15 @@ export const ClientRegistration: Component = () => {
           >
           Country code:
           </input>
+
+           */
+
+<input
+type="text"
+id="CountryCode"
+/>
+
+          
           <input
             type="text"
             id="Phone"
