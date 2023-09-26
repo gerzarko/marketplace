@@ -57,6 +57,11 @@ export const ClientProviderView: Component<Props> = (props) => {
                     .eq("provider_id", id);
 
                     console.log(data)
+                    for(let i = 0; i < data!.length; i++){
+                        if(data![i].promoted === true){
+                            data!.unshift(data![i])
+                        }
+                    }
 
                 if (error) {
                     console.log(error);
