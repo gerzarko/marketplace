@@ -56,6 +56,8 @@ export const ClientProviderView: Component<Props> = (props) => {
                     .select("*")
                     .eq("provider_id", id);
 
+                    console.log(data)
+
                 if (error) {
                     console.log(error);
                 } else if (data[0] === undefined) {
