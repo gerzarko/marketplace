@@ -48,6 +48,8 @@ interface ProviderPost {
     governing_district: string;
     user_id: string;
     image_urls: string;
+    promoted: boolean;
+
 }
 
 export const ServicesView: Component = () => {
@@ -67,7 +69,57 @@ export const ServicesView: Component = () => {
         setCurrentPosts(data)
     }
 
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+    const sortPosts= async () => {
+
+        const { data: posts, error: postsError } = await supabase
+            .from('provider_post')
+            .select('*')
+        if(postsError){
+            console.log(postsError)
+        }
+        let postsToOrganized= posts!
+        
+        let promotedPosts= []
+
+        for (let i = 0; i < postsToOrganized.length; i++) {
+            if (postsToOrganized[i].promoted === true) {
+                promotedPosts.push(
+                    {
+                       post: postsToOrganized[i],
+                       index: i ,
+                    }
+                        )
+            }
+        }
+        
+        shuffleArray(promotedPosts)
+            for (let i = 0; i < 5&& promotedPosts.length >= 5; i++) {
+                let number = promotedPosts[i].index
+                       postsToOrganized.splice(number,1)
+                       postsToOrganized.unshift(promotedPosts[i].post)
+            }
+            // setCurrentPosts(posts3)
+            setPosts(postsToOrganized)
+            setCurrentPosts(postsToOrganized)
+
+    }
+// console.log(posts())
+  sortPosts() 
+
+///////////////////////////////////////// 
+
     const searchPosts = async (searchString: string) => {
+
         console.log(searchString);
         if (searchString === '') {
             console.log("Data: ")
