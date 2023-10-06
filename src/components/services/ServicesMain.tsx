@@ -24,9 +24,12 @@ if (user.session === null || user.session === undefined) {
     location.href = `/${lang}/login`;
 }
 
-const { data, error } = await supabase.from('providerposts').select('*').order('created_at', { ascending: false });
+const { data, error } = await supabase
+    .from('providerposts')
+    .select('*')
+    .order('id', { ascending: false });
 
-data?.map(item => {
+    data?.map(item => {
     productCategories.forEach(productCategories => {
         if (item.service_category.toString() === productCategories.id) {
             item.category = productCategories.name
