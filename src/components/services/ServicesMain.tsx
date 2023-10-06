@@ -24,7 +24,7 @@ if (user.session === null || user.session === undefined) {
     location.href = `/${lang}/login`;
 }
 
-const { data, error } = await supabase.from('providerposts').select('*');
+const { data, error } = await supabase.from('providerposts').select('*').order('created_at', { ascending: false });
 
 data?.map(item => {
     productCategories.forEach(productCategories => {
