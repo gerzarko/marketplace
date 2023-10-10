@@ -7,9 +7,12 @@ import { SearchBar } from './SearchBar'
 import { ui } from '../../i18n/ui'
 import type { uiObject } from '../../i18n/uiType';
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { createInfiniteScroll, createPagination } from '@solid-primitives/pagination';
 
 const lang = getLangFromUrl(new URL(window.location.href));
 const t = useTranslations(lang);
+const [page,setPage] = createSignal(0);
+const [data,setData] = createSignal()
 
 //get the categories from the language files so they translate with changes in the language picker
 const values = ui[lang] as uiObject
@@ -23,8 +26,45 @@ if (user.session === null || user.session === undefined) {
     alert(t('messages.signIn'));
     location.href = `/${lang}/login`;
 }
+// ----------------------------
+//get the posts from the database
+//
+//
 
-const { data, error } = await supabase.from('providerposts').select('*');
+const getFromAndTo = () => {
+
+    const itemsPerPage = 10;
+    let from = page() * itemsPerPage
+    let to = from + itemsPerPage
+
+    if(page() > 0){
+            from += 1
+        }
+
+    return {from,to}
+
+
+    }
+
+
+
+const fetchPosts = async ()=> {
+
+    const { data, error } = await supabase
+    .from('providerposts')
+    .select('*')
+    .range(0,5)
+
+    return(data)
+    
+}
+
+
+
+let data = fetchPosts()
+
+
+// ----------------------------
 
 data?.map(item => {
     productCategories.forEach(productCategories => {
@@ -58,6 +98,7 @@ export const ServicesView: Component = () => {
     const [locationFilters, setLocationFilters] = createSignal<Array<string>>([])
     const [minorLocationFilters, setMinorLocationFilters] = createSignal<Array<string>>([])
     const [governingLocationFilters, setGoverningLocationFilters] = createSignal<Array<string>>([])
+    const [page, setPage] = createSignal(0);
 
     //start the page as displaying all posts
     if (!data) {
