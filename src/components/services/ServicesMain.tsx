@@ -12,7 +12,6 @@ import { createInfiniteScroll, createPagination } from '@solid-primitives/pagina
 const lang = getLangFromUrl(new URL(window.location.href));
 const t = useTranslations(lang);
 const [page,setPage] = createSignal(0);
-const [data,setData] = createSignal()
 
 //get the categories from the language files so they translate with changes in the language picker
 const values = ui[lang] as uiObject
@@ -48,34 +47,28 @@ const getFromAndTo = () => {
 
 
 
-const fetchPosts = async ()=> {
 
-    const { data, error } = await supabase
-    .from('providerposts')
-    .select('*')
-    .range(0,5)
-
-    return(data)
-    
-}
-
-
-
-let data = fetchPosts()
-
-
-// ----------------------------
-
-data?.map(item => {
-    productCategories.forEach(productCategories => {
-        if (item.service_category.toString() === productCategories.id) {
-            item.category = productCategories.name
-        }
-    })
-    delete item.service_category
-})
-
-
+// const { data, error } = await supabase
+//     .from('providerposts')
+//     .range(0,5)
+//     .select('*')
+//     
+//
+//
+//
+//
+// // ----------------------------
+//
+// data?.map(item => {
+//     productCategories.forEach(productCategories => {
+//         if (item.service_category.toString() === productCategories.id) {
+//             item.category = productCategories.name
+//         }
+//     })
+//     delete item.service_category
+// })
+//
+//
 
 interface ProviderPost {
     content: string;
@@ -98,14 +91,36 @@ export const ServicesView: Component = () => {
     const [locationFilters, setLocationFilters] = createSignal<Array<string>>([])
     const [minorLocationFilters, setMinorLocationFilters] = createSignal<Array<string>>([])
     const [governingLocationFilters, setGoverningLocationFilters] = createSignal<Array<string>>([])
-    const [page, setPage] = createSignal(0);
+    const [data,setData] = createSignal<Array<ProviderPost>>([])
+
+
+    const fetchData = async () => {
+
+
+        const { data, error } = await supabase
+            .from('providerposts')
+            .select('*')
+            .range(getFromAndTo().from,getFromAndTo().to)
+
+            data?.map(item => {
+                    productCategories.forEach(productCategories => {
+                            if (item.service_category.toString() === productCategories.id) {
+                            item.category = productCategories.name
+                            }
+                            })
+                    delete item.service_category
+                    })
+           setData(data!) 
+    }
+
+
 
     //start the page as displaying all posts
-    if (!data) {
+    if (!data()) {
         alert(t('messages.noPosts'))
     } else {
-        setPosts(data)
-        setCurrentPosts(data)
+        setPosts(data())
+        setCurrentPosts(data())
     }
 
     const searchPosts = async (searchString: string) => {
