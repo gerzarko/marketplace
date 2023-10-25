@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal } from 'solid-js'
+import { Component, createEffect, createSignal , createPagination} from 'solid-js'
 import { supabase } from '../../lib/supabaseClient'
 import { CategoryCarousel } from './CategoryCarousel'
 import { ViewCard } from './ViewCard';
@@ -348,6 +348,8 @@ export const ServicesView: Component = () => {
         setGoverningLocationFilters([]);
         filterPosts();
     }
+
+    const [paginationProps,page,setPage] = createPagination({pages:10})
 
     return (
         <div class=''>
