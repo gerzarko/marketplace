@@ -35,6 +35,7 @@ async function getPosts(page:number) {
     } else {
         posts = data
     }
+    console.log(posts)
     return posts 
 
 }
@@ -74,8 +75,8 @@ export const ServicesView: Component = () => {
 
 
     const [paginationProps,page,setPage] = createPagination({pages:10})
-    const [pages,infinitScrollLoader,{end}] = createInfiniteScroll({pages:10})
-    console.log(page())
+    const [pages,infinitScrollLoader,{end}] = createInfiniteScroll(getPosts)
+    setPosts(paginationProps())
 
     
 
