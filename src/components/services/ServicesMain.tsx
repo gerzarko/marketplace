@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal , createPagination} from 'solid-js'
+import { Component, createEffect, createSignal } from 'solid-js'
 import { supabase } from '../../lib/supabaseClient'
 import { CategoryCarousel } from './CategoryCarousel'
 import { ViewCard } from './ViewCard';
@@ -7,6 +7,7 @@ import { SearchBar } from './SearchBar'
 import { ui } from '../../i18n/ui'
 import type { uiObject } from '../../i18n/uiType';
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { createInfiniteScroll, createPagination } from '@solid-primitives/pagination';
 
 const lang = getLangFromUrl(new URL(window.location.href));
 const t = useTranslations(lang);
@@ -25,6 +26,18 @@ if (user.session === null || user.session === undefined) {
 }
 
 const { data, error } = await supabase.from('providerposts').select('*');
+
+async function getPosts(page:number) {
+    let posts = []
+    const { data, error } = await supabase.from('providerposts').select('*').range(page, 10);
+    if (error) {
+        console.log(error)
+    } else {
+        posts = data
+    }
+    return posts 
+
+}
 
 data?.map(item => {
     productCategories.forEach(productCategories => {
@@ -58,6 +71,13 @@ export const ServicesView: Component = () => {
     const [locationFilters, setLocationFilters] = createSignal<Array<string>>([])
     const [minorLocationFilters, setMinorLocationFilters] = createSignal<Array<string>>([])
     const [governingLocationFilters, setGoverningLocationFilters] = createSignal<Array<string>>([])
+
+
+    const [paginationProps,page,setPage] = createPagination({pages:10})
+    const [pages,infinitScrollLoader,{end}] = createInfiniteScroll({pages:10})
+    console.log(page())
+
+    
 
     //start the page as displaying all posts
     if (!data) {
