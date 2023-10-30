@@ -349,7 +349,7 @@ export const ServicesView: Component = () => {
         filterPosts();
     }
 
-    const [paginationProps,page,setPage] = createPagination({pages:10})
+    // const [paginationProps,page,setPage] = createPagination({pages:10})
 
     return (
         <div class=''>
