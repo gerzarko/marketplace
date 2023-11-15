@@ -54,6 +54,15 @@ async function getPosts() {
     const {from, to} = getFromAndTo()
     const queryQ = await allFilters.fetchAllPosts(from,to)
     let posts = []
+
+    queryQ?.map(item => {
+    productCategories.forEach(productCategories => {
+        if (item.service_category.toString() === productCategories.id) {
+            item.category = productCategories.name
+            }
+        })
+    delete item.service_category
+    })
     // const { data, error } = queryQ?.range(from,to); 
     // if (error) {
     //     console.log(error)
