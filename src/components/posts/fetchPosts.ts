@@ -42,13 +42,15 @@ export async function fetchFilteredPosts(categoryFilters: Array<number>, locatio
     }
 } 
 
-export async function fetchAllPosts() {
+export async function fetchAllPosts(from,to) {
     try {
-        const { data: allPosts, error } = await supabase.from("providerposts").select("*")
+        const { data: allPosts, error } = await supabase.from("providerposts").select("*").range(from, to);
+
 
         if(error) {
             console.log("supabase error: " + error.message);
         } else {
+            console.log("all posts: " + allPosts);
             return allPosts
         }
     } catch(e) {
